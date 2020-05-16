@@ -8,7 +8,7 @@ import falcyn.parsing.Validated
 import falcyn.parsing.Validated._
 import falcyn.parsing.types._
 
-class UnfinishedParam[T] private(converter: Converter[String, T]) extends Spec {
+class UnfinishedParam[+T] private[spec](converter: Converter[String, T]) {
   
   def validate(validator: Validator[T], onInvalid: OnInvalid[T]): UnfinishedParam[T] =
     new UnfinishedParam[T](
@@ -30,9 +30,6 @@ class UnfinishedParam[T] private(converter: Converter[String, T]) extends Spec {
             c(name, res)  
         )
     )
-  
-  def apply(name: String, str: String): Validated[T] =
-    converter(name, str)
   
 }
 
